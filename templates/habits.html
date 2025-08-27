@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}SparkOS - Habits{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">Habit Tracker</h1>
+            <p class="text-gray-600">Build positive habits, one day at a time</p>
+        </div>
+        <button id="new-habit-btn" class="mt-4 md:mt-0 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center">
+            <i class="fas fa-plus mr-2"></i> New Habit
+        </button>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-lg shadow">
+            <div class="text-gray-500 text-sm">Current Streak</div>
+            <div class="text-2xl font-bold text-indigo-600">7 <span class="text-lg">days</span></div>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow">
+            <div class="text-gray-500 text-sm">Habits Tracked</div>
+            <div class="text-2xl font-bold text-green-600">5</div>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow">
+            <div class="text-gray-500 text-sm">Completion Rate</div>
+            <div class="text-2xl font-bold text-yellow-500">85%</div>
+        </div>
+    </div>
+
+    <!-- Daily Habits -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Today's Habits</h2>
+        <div id="today-habits" class="space-y-3">
+            <!-- Habit items will be added here by JavaScript -->
+            <div class="flex items-center justify-between p-4 border rounded-lg">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-book text-indigo-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Read for 30 minutes</h3>
+                        <p class="text-sm text-gray-500">Daily at 8:00 PM</p>
+                    </div>
+                </div>
+                <button class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50">
+                    <i class="fas fa-check text-gray-400"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center justify-between p-4 border rounded-lg">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-dumbbell text-green-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Exercise</h3>
+                        <p class="text-sm text-gray-500">3 times a week</p>
+                    </div>
+                </div>
+                <button class="w-8 h-8 rounded-full border-2 border-green-500 bg-green-50 flex items-center justify-center">
+                    <i class="fas fa-check text-green-600"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Habits -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-800">All Habits</h2>
+            <div class="flex space-x-2">
+                <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-50">All</button>
+                <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-50">Active</button>
+                <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-50">Archived</button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Habit</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Frequency</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Streak</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-book text-indigo-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">Read for 30 minutes</div>
+                                    <div class="text-sm text-gray-500">Daily</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                Daily
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">7 days</div>
+                            <div class="text-sm text-gray-500">Best: 30 days</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                            <button class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-dumbbell text-green-600"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">Exercise</div>
+                                    <div class="text-sm text-gray-500">3 times a week</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                Weekly
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">2 weeks</div>
+                            <div class="text-sm text-gray-500">Best: 2 weeks</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                            <button class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- New Habit Modal -->
+<div id="new-habit-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg w-full max-w-md mx-4">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">New Habit</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="new-habit-form">
+                <div class="mb-4">
+                    <label for="habit-name" class="block text-sm font-medium text-gray-700 mb-1">Habit Name</label>
+                    <input type="text" id="habit-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g., Drink 8 glasses of water">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Frequency</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button type="button" class="frequency-btn py-2 px-3 border rounded-md text-sm font-medium" data-frequency="daily">Daily</button>
+                        <button type="button" class="frequency-btn py-2 px-3 border rounded-md text-sm font-medium" data-frequency="weekly">Weekly</button>
+                        <button type="button" class="frequency-btn py-2 px-3 border rounded-md text-sm font-medium" data-frequency="monthly">Monthly</button>
+                    </div>
+                    <input type="hidden" id="habit-frequency" value="daily">
+                </div>
+                
+                <div class="mb-4" id="days-of-week-container" style="display: none;">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Days</label>
+                    <div class="grid grid-cols-7 gap-1">
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="0">S</button>
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="1">M</button>
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="2">T</button>
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="3">W</button>
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="4">T</button>
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="5">F</button>
+                        <button type="button" class="day-btn py-1 px-2 border rounded text-xs" data-day="6">S</button>
+                    </div>
+                    <input type="hidden" id="selected-days" value="">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="habit-time" class="block text-sm font-medium text-gray-700 mb-1">Time of Day</label>
+                    <select id="habit-time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="specific">Specific Time</option>
+                    </select>
+                </div>
+                
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="cancel-habit" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Save Habit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle new habit modal
+document.getElementById('new-habit-btn').addEventListener('click', function() {
+    document.getElementById('new-habit-modal').classList.remove('hidden');
+});
+
+document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('new-habit-modal').classList.add('hidden');
+});
+
+document.getElementById('cancel-habit').addEventListener('click', function() {
+    document.getElementById('new-habit-modal').classList.add('hidden');
+});
+
+// Handle frequency selection
+const frequencyBtns = document.querySelectorAll('.frequency-btn');
+frequencyBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Remove active class from all buttons
+        frequencyBtns.forEach(b => b.classList.remove('bg-indigo-100', 'border-indigo-500', 'text-indigo-700'));
+        // Add active class to clicked button
+        this.classList.add('bg-indigo-100', 'border-indigo-500', 'text-indigo-700');
+        // Update hidden input
+        document.getElementById('habit-frequency').value = this.dataset.frequency;
+        
+        // Show/hide days of week for weekly frequency
+        if (this.dataset.frequency === 'weekly') {
+            document.getElementById('days-of-week-container').style.display = 'block';
+        } else {
+            document.getElementById('days-of-week-container').style.display = 'none';
+        }
+    });
+});
+
+// Handle day selection
+const dayBtns = document.querySelectorAll('.day-btn');
+dayBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.classList.toggle('bg-indigo-100');
+        this.classList.toggle('border-indigo-500');
+        this.classList.toggle('text-indigo-700');
+        
+        // Update selected days
+        const selectedDays = [];
+        document.querySelectorAll('.day-btn.bg-indigo-100').forEach(selectedBtn => {
+            selectedDays.push(selectedBtn.dataset.day);
+        });
+        document.getElementById('selected-days').value = selectedDays.join(',');
+    });
+});
+
+// Handle form submission
+document.getElementById('new-habit-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // In a real app, you would send this data to your backend
+    const habitData = {
+        name: document.getElementById('habit-name').value,
+        frequency: document.getElementById('habit-frequency').value,
+        days: document.getElementById('selected-days').value,
+        time: document.getElementById('habit-time').value
+    };
+    
+    console.log('New habit:', habitData);
+    
+    // Close modal and reset form
+    document.getElementById('new-habit-modal').classList.add('hidden');
+    this.reset();
+    
+    // Show success message
+    alert('Habit created successfully!');
+});
+
+// Toggle habit completion
+const toggleButtons = document.querySelectorAll('#today-habits button');
+toggleButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        this.classList.toggle('border-gray-300');
+        this.classList.toggle('border-green-500');
+        this.classList.toggle('bg-green-50');
+        
+        const icon = this.querySelector('i');
+        if (this.classList.contains('border-green-500')) {
+            icon.classList.remove('fa-check', 'text-gray-400');
+            icon.classList.add('fa-check', 'text-green-600');
+            // In a real app, you would update the backend here
+        } else {
+            icon.classList.remove('text-green-600');
+            icon.classList.add('text-gray-400');
+            // In a real app, you would update the backend here
+        }
+    });
+});
+</script>
+{% endblock %}

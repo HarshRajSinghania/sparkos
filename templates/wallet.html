@@ -1,0 +1,403 @@
+{% extends "base.html" %}
+
+{% block title %}SparkOS - Wallet{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">My Wallet</h1>
+            <p class="text-gray-600">Track your spending and savings</p>
+        </div>
+        <div class="mt-4 md:mt-0 flex space-x-3">
+            <button id="add-income-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center">
+                <i class="fas fa-plus mr-2"></i> Add Income
+            </button>
+            <button id="add-expense-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center">
+                <i class="fas fa-minus mr-2"></i> Add Expense
+            </button>
+        </div>
+    </div>
+
+    <!-- Balance and Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- Total Balance -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-700 mb-2">Total Balance</h2>
+            <div class="text-3xl font-bold text-gray-800">$<span id="total-balance">1,245.75</span></div>
+            <p class="text-sm text-gray-500 mt-1">Updated just now</p>
+        </div>
+        
+        <!-- This Month's Income -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-lg font-semibold text-gray-700">Income</h2>
+                <span class="text-green-500"><i class="fas fa-arrow-up"></i> 12%</span>
+            </div>
+            <div class="text-2xl font-bold text-green-600">$<span id="monthly-income">850.00</span></div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                <div class="bg-green-500 h-2 rounded-full" style="width: 70%"></div>
+            </div>
+        </div>
+        
+        <!-- This Month's Expenses -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-lg font-semibold text-gray-700">Expenses</h2>
+                <span class="text-red-500"><i class="fas fa-arrow-down"></i> 8%</span>
+            </div>
+            <div class="text-2xl font-bold text-red-600">$<span id="monthly-expenses">395.75</span></div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                <div class="bg-red-500 h-2 rounded-full" style="width: 30%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left Column -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Recent Transactions -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Recent Transactions</h2>
+                    <button class="text-sm text-indigo-600 hover:text-indigo-800">View All</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Transaction Item -->
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-dollar-sign text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Allowance</h3>
+                                <p class="text-sm text-gray-500">Weekly allowance from parents</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium text-green-600">+$50.00</div>
+                            <div class="text-sm text-gray-500">Today</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transaction Item -->
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-utensils text-red-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Lunch with Friends</h3>
+                                <p class="text-sm text-gray-500">Food & Drinks</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium text-red-600">-$15.75</div>
+                            <div class="text-sm text-gray-500">Yesterday</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transaction Item -->
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-gamepad text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">New Video Game</h3>
+                                <p class="text-sm text-gray-500">Entertainment</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium text-red-600">-$59.99</div>
+                            <div class="text-sm text-gray-500">2 days ago</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 py-2 border border-dashed border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 transition">
+                    <i class="fas fa-plus mr-2"></i> Add Transaction
+                </button>
+            </div>
+            
+            <!-- Spending by Category -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Spending by Category</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Category Item -->
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-utensils text-red-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Food & Drinks</h3>
+                                <p class="text-sm text-gray-500">25% of expenses</p>
+                            </div>
+                        </div>
+                        <div class="font-medium text-gray-800">$98.75</div>
+                    </div>
+                    
+                    <!-- Category Item -->
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-gamepad text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Entertainment</h3>
+                                <p class="text-sm text-gray-500">15% of expenses</p>
+                            </div>
+                        </div>
+                        <div class="font-medium text-gray-800">$59.99</div>
+                    </div>
+                    
+                    <!-- Category Item -->
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-shopping-bag text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Shopping</h3>
+                                <p class="text-sm text-gray-500">10% of expenses</p>
+                            </div>
+                        </div>
+                        <div class="font-medium text-gray-800">$40.00</div>
+                    </div>
+                    
+                    <!-- Category Item -->
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-book text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Education</h3>
+                                <p class="text-sm text-gray-500">5% of expenses</p>
+                            </div>
+                        </div>
+                        <div class="font-medium text-gray-800">$20.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="space-y-6">
+            <!-- Savings Goals -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Savings Goals</h2>
+                    <button id="add-goal-btn" class="text-indigo-600 hover:text-indigo-800">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Goal Item -->
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-medium text-gray-800">New Laptop</h3>
+                                <p class="text-sm text-gray-500">Target: $1,200.00</p>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 45%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">$540.00 saved</span>
+                            <span class="font-medium">45%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Goal Item -->
+                    <div class="border rounded-lg p-4 opacity-50">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-medium text-gray-800">Summer Trip</h3>
+                                <p class="text-sm text-gray-500">Target: $800.00</p>
+                            </div>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Paused</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="bg-yellow-400 h-2 rounded-full" style="width: 15%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">$120.00 saved</span>
+                            <span class="font-medium">15%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 py-2 border border-dashed border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 transition">
+                    <i class="fas fa-plus mr-2"></i> Add Goal
+                </button>
+            </div>
+            
+            <!-- Budget Overview -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Budget Overview</h2>
+                <div class="space-y-4">
+                    <!-- Budget Item -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-medium">Food & Drinks</span>
+                            <span>$98.75 / $150.00</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Budget Item -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-medium">Entertainment</span>
+                            <span>$59.99 / $100.00</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Budget Item -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-medium">Shopping</span>
+                            <span>$40.00 / $75.00</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 53%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 py-2 border border-dashed border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 transition">
+                    <i class="fas fa-plus mr-2"></i> Set Budget
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Transaction Modal -->
+<div id="transaction-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg w-full max-w-md mx-4">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-xl font-semibold text-gray-800">Add Transaction</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="transaction-form">
+                <input type="hidden" id="transaction-type" value="expense">
+                
+                <div class="mb-4">
+                    <label for="transaction-amount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 sm:text-sm">$</span>
+                        </div>
+                        <input type="number" step="0.01" min="0.01" id="transaction-amount" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="transaction-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <select id="transaction-category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="food">Food & Drinks</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="education">Education</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="transaction-note" class="block text-sm font-medium text-gray-700 mb-1">Note (Optional)</label>
+                    <input type="text" id="transaction-note" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g., Lunch with friends">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="transaction-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date" id="transaction-date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="cancel-transaction" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add Transaction
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Set today's date as default for the date input
+window.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('transaction-date').value = today;
+});
+
+// Transaction modal handling
+document.getElementById('add-income-btn').addEventListener('click', function() {
+    document.getElementById('modal-title').textContent = 'Add Income';
+    document.getElementById('transaction-type').value = 'income';
+    document.getElementById('transaction-modal').classList.remove('hidden');
+});
+
+document.getElementById('add-expense-btn').addEventListener('click', function() {
+    document.getElementById('modal-title').textContent = 'Add Expense';
+    document.getElementById('transaction-type').value = 'expense';
+    document.getElementById('transaction-modal').classList.remove('hidden');
+});
+
+document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('transaction-modal').classList.add('hidden');
+});
+
+document.getElementById('cancel-transaction').addEventListener('click', function() {
+    document.getElementById('transaction-modal').classList.add('hidden');
+});
+
+// Handle form submission
+document.getElementById('transaction-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const transactionData = {
+        type: document.getElementById('transaction-type').value,
+        amount: parseFloat(document.getElementById('transaction-amount').value),
+        category: document.getElementById('transaction-category').value,
+        note: document.getElementById('transaction-note').value,
+        date: document.getElementById('transaction-date').value
+    };
+    
+    console.log('New transaction:', transactionData);
+    
+    // In a real app, you would send this data to your backend
+    // and update the UI accordingly
+    
+    // Close modal and reset form
+    document.getElementById('transaction-modal').classList.add('hidden');
+    this.reset();
+    
+    // Show success message
+    alert('Transaction added successfully!');
+});
+</script>
+{% endblock %}
