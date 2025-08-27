@@ -131,7 +131,7 @@ sparkos/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is a hackathon submission you can view the code but you cant modify or use it for any other purposes.
 
 ## Acknowledgments
 
